@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'constants.dart';
-import 'screens/main/main_screen.dart';
+import 'screens/profile_screen/profile_screen.dart';
+import 'constants/constants.dart';
+
+late Size mq;
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
+//For comment removing
+// \/\/.*$|\/\*[\s\S]*?\*\/
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,7 +26,7 @@ class MyApp extends StatelessWidget {
             .apply(bodyColor: Colors.white),
         canvasColor: secondaryColor,
       ),
-      home: MainScreen(),
+      home: const ProfileScreen(),
     );
   }
 }
