@@ -1,10 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_switch/flutter_switch.dart';
+import 'package:yums_dashboard/constants/constants.dart';
 
 import '../../../main.dart';
+import 'custom_text_switch.dart';
+import 'custom_textfields.dart';
 
 class Body extends StatefulWidget {
-  Body({super.key});
+  const Body({super.key});
 
   @override
   State<Body> createState() => _BodyState();
@@ -16,12 +20,17 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     final _nameController = TextEditingController();
-    final emailController = TextEditingController();
+    final _emailController = TextEditingController();
+    bool msgFlag = true;
+    bool mrngFlag = false;
+    bool eveFlag = false;
+    bool spcialFlag = false;
     return Form(
       key: _formKey,
       child: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             //for adding some space
             SizedBox(width: mq.width, height: mq.height * 0.03),
@@ -36,45 +45,36 @@ class _BodyState extends State<Body> {
               hintText: 'e.g abc@example.com',
               title: 'Email',
               iconData: Icons.email_rounded,
-              controller: _nameController,
+              controller: _emailController,
             ),
-            SizedBox(height: mq.height * 0.05),
+            SizedBox(height: mq.height * 0.02),
+            const Divider(
+                color: secondaryColor, height: 5, indent: 200, endIndent: 200),
+            SizedBox(height: mq.height * 0.01),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              child: Text(
+                'Notification',
+                textAlign: TextAlign.left,
+                style: TextStyle(fontSize: 22),
+              ),
+            ),
+            CustomTextSwitch(flag: msgFlag, name: 'Message'),
+            CustomTextSwitch(flag: mrngFlag, name: 'Morning Route'),
+            CustomTextSwitch(flag: eveFlag, name: 'Evening Route'),
+            CustomTextSwitch(flag: spcialFlag, name: 'Special Route'),
+            const Divider(
+                color: secondaryColor, height: 5, indent: 200, endIndent: 200),
+            SizedBox(height: mq.height * 0.01),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              child: Text(
+                'Notification',
+                textAlign: TextAlign.left,
+                style: TextStyle(fontSize: 22),
+              ),
+            ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class CustomTextField extends StatelessWidget {
-  CustomTextField({
-    super.key,
-    required this.title,
-    // this.initialText,
-    required this.controller,
-    required this.iconData,
-    required this.hintText,
-  });
-  final String title;
-  final String hintText;
-
-  // final String? initialText;
-  TextEditingController? controller;
-  final IconData iconData;
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: mq.width * .04),
-      child: TextFormField(
-        // controller: controller,
-        onSaved: (val) {},
-        validator: (val) => val != null && val.isNotEmpty ? null : '*Required',
-        initialValue: controller!.text, //?? Yaha error hn
-        decoration: InputDecoration(
-          hintText: hintText,
-          label: Text(title),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(50)),
-          prefixIcon: Icon(iconData, color: Theme.of(context).primaryColor),
         ),
       ),
     );
