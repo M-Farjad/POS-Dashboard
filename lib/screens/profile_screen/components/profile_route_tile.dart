@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/constants.dart';
 import '../../../main.dart';
-import 'custom_textfields.dart';
 
 class ProfileTileWidget extends StatelessWidget {
   final String title;
@@ -21,6 +19,53 @@ class ProfileTileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void _showEditRouteTileDialog() {
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          backgroundColor: secondaryColor,
+          title: Text(
+            title,
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
+          ),
+          actions: [
+            MaterialButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              // color: kLightPrimaryColor,
+              child: const Text(
+                'Cancel',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: primaryColor,
+                ),
+              ),
+            ),
+            MaterialButton(
+              onPressed: () async {
+                // APIs.updateMessage(widget.message, updatedMessage);
+                Navigator.pop(context);
+              },
+              child: const Text(
+                'Add',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: primaryColor,
+                ),
+              ),
+            )
+          ],
+          contentPadding: const EdgeInsets.only(top: 8, left: 10, right: 10),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          content: Container(
+            height: mq.height * .2,
+          ),
+        ),
+      );
+    }
+
     final TextEditingController _nameController = TextEditingController();
     final TextEditingController _emailController = TextEditingController();
     return Padding(
@@ -44,58 +89,12 @@ class ProfileTileWidget extends StatelessWidget {
             ],
           ),
           trailing: IconButton(
-            icon: const Icon(
-              Icons.edit,
-              color: bgColor,
-              size: 24,
-            ),
-            onPressed: () => showDialog(
-              context: context,
-              builder: (_) => AlertDialog(
-                backgroundColor: secondaryColor,
-                title: Text(
-                  title,
-                  style: const TextStyle(
-                      fontSize: 24, fontWeight: FontWeight.w700),
-                ),
-                actions: [
-                  MaterialButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    // color: kLightPrimaryColor,
-                    child: const Text(
-                      'Cancel',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: primaryColor,
-                      ),
-                    ),
-                  ),
-                  MaterialButton(
-                    onPressed: () async {
-                      // APIs.updateMessage(widget.message, updatedMessage);
-                      Navigator.pop(context);
-                    },
-                    child: const Text(
-                      'Add',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: primaryColor,
-                      ),
-                    ),
-                  )
-                ],
-                contentPadding:
-                    const EdgeInsets.only(top: 8, left: 10, right: 10),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                content: Container(
-                  height: mq.height * .2,
-                ),
+              icon: const Icon(
+                Icons.edit,
+                color: bgColor,
+                size: 24,
               ),
-            ),
-          ),
+              onPressed: () => _showEditRouteTileDialog()),
         ),
       ),
     );
