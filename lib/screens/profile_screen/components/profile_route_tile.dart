@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/constants.dart';
 import '../../../main.dart';
+import 'custom_textfields.dart';
 
 class ProfileTileWidget extends StatelessWidget {
   final String title;
@@ -19,6 +21,8 @@ class ProfileTileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController _nameController = TextEditingController();
+    final TextEditingController _emailController = TextEditingController();
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: mq.height * 0.01),
       child: Container(
@@ -45,7 +49,52 @@ class ProfileTileWidget extends StatelessWidget {
               color: bgColor,
               size: 24,
             ),
-            onPressed: () {},
+            onPressed: () => showDialog(
+              context: context,
+              builder: (_) => AlertDialog(
+                backgroundColor: secondaryColor,
+                title: Text(
+                  title,
+                  style: const TextStyle(
+                      fontSize: 24, fontWeight: FontWeight.w700),
+                ),
+                actions: [
+                  MaterialButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    // color: kLightPrimaryColor,
+                    child: const Text(
+                      'Cancel',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: primaryColor,
+                      ),
+                    ),
+                  ),
+                  MaterialButton(
+                    onPressed: () async {
+                      // APIs.updateMessage(widget.message, updatedMessage);
+                      Navigator.pop(context);
+                    },
+                    child: const Text(
+                      'Add',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: primaryColor,
+                      ),
+                    ),
+                  )
+                ],
+                contentPadding:
+                    const EdgeInsets.only(top: 8, left: 10, right: 10),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)),
+                content: Container(
+                  height: mq.height * .2,
+                ),
+              ),
+            ),
           ),
         ),
       ),
