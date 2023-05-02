@@ -6,6 +6,7 @@ import 'package:yums_dashboard/constants/constants.dart';
 import '../../../main.dart';
 import 'custom_text_switch.dart';
 import 'custom_textfields.dart';
+import 'profile_route_tile.dart';
 
 class Body extends StatefulWidget {
   const Body({super.key});
@@ -19,11 +20,11 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    final _nameController = TextEditingController();
-    final _emailController = TextEditingController();
+    final TextEditingController _nameController = TextEditingController();
+    final TextEditingController _emailController = TextEditingController();
     bool msgFlag = true;
     bool mrngFlag = false;
-    bool eveFlag = false;
+    bool eveFlag = true;
     bool spcialFlag = false;
     return Form(
       key: _formKey,
@@ -44,7 +45,7 @@ class _BodyState extends State<Body> {
             CustomTextField(
               hintText: 'e.g abc@example.com',
               title: 'Email',
-              iconData: Icons.email_rounded,
+              iconData: Icons.email_outlined,
               controller: _emailController,
             ),
             SizedBox(height: mq.height * 0.02),
@@ -55,8 +56,7 @@ class _BodyState extends State<Body> {
               padding: EdgeInsets.symmetric(horizontal: 20.0),
               child: Text(
                 'Notification',
-                textAlign: TextAlign.left,
-                style: TextStyle(fontSize: 22),
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
               ),
             ),
             CustomTextSwitch(flag: msgFlag, name: 'Message'),
@@ -66,13 +66,30 @@ class _BodyState extends State<Body> {
             const Divider(
                 color: secondaryColor, height: 5, indent: 200, endIndent: 200),
             SizedBox(height: mq.height * 0.01),
+
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0),
               child: Text(
-                'Notification',
+                'My Route',
                 textAlign: TextAlign.left,
-                style: TextStyle(fontSize: 22),
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
               ),
+            ),
+            SizedBox(height: mq.height * 0.01),
+            ProfileTileWidget(
+              title: 'Morning',
+              busStopName: 'Bus Stop 1',
+              busRouteName: 'Route 1',
+            ),
+            ProfileTileWidget(
+              title: 'Evening',
+              busStopName: 'Bus Stop 1',
+              busRouteName: 'Route 1',
+            ),
+            ProfileTileWidget(
+              title: 'Special',
+              busStopName: 'Bus Stop 1',
+              busRouteName: 'Route 1',
             ),
           ],
         ),

@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 
 import 'screens/profile_screen/profile_screen.dart';
 import 'constants/constants.dart';
 
 late Size mq;
 
-void main() {
+void main() async {
+  //init Flutter
+  await Hive.initFlutter();
+  //open Box
+  var box = await Hive.openBox('MyBox');
   runApp(const MyApp());
 }
 

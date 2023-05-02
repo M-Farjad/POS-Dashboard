@@ -1,10 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:yums_dashboard/constants/constants.dart';
 
 import '../../../main.dart';
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField({
+  //for storing Hive box
+  final _myBox = Hive.box('MyBox');
+
+  //for writing data
+  void writeDataLocally() {
+    _myBox.put(1, controller!.value);
+  }
+
+  //for writing data
+  String? readLocalData() {
+    return _myBox.get(key);
+  }
+
+  //for writing data
+  void deleteDataLocally() {
+    _myBox.delete(1);
+  }
+
+  CustomTextField({
     super.key,
     required this.title,
     // this.initialText,
@@ -23,10 +42,13 @@ class CustomTextField extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: mq.width * .04),
       child: TextFormField(
-        // controller: controller,
+        controller: controller,
+
         onSaved: (val) {},
         validator: (val) => val != null && val.isNotEmpty ? null : '*Required',
-        initialValue: controller!.text, //?? Yaha error hn
+        // initialValue: readLocalData() == null
+        //     ? controller!.text
+        //     : readLocalData(), //?? Yaha error hn
         decoration: InputDecoration(
           hintText: hintText,
           label: Text(title),
