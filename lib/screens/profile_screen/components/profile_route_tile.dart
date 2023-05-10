@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../constants/constants.dart';
+// import '../../../constants/constants.dart';
+import '../../../configs/themes/app_color.dart';
 import '../../../main.dart';
+import '../../../responsive.dart';
 
 class ProfileTileWidget extends StatelessWidget {
   final String title;
@@ -23,7 +25,7 @@ class ProfileTileWidget extends StatelessWidget {
       showDialog(
         context: context,
         builder: (_) => AlertDialog(
-          backgroundColor: secondaryColor,
+          backgroundColor: cardColorLight,
           title: Text(
             title,
             style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
@@ -38,7 +40,7 @@ class ProfileTileWidget extends StatelessWidget {
                 'Cancel',
                 style: TextStyle(
                   fontSize: 16,
-                  color: primaryColor,
+                  color: primaryColorDark,
                 ),
               ),
             ),
@@ -51,7 +53,7 @@ class ProfileTileWidget extends StatelessWidget {
                 'Add',
                 style: TextStyle(
                   fontSize: 16,
-                  color: primaryColor,
+                  color: primaryColorDark,
                 ),
               ),
             )
@@ -60,7 +62,7 @@ class ProfileTileWidget extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           content: Container(
-            height: mq.height * .2,
+            height: Responsive.tabletSize * .35,
           ),
         ),
       );
@@ -69,17 +71,20 @@ class ProfileTileWidget extends StatelessWidget {
     final TextEditingController _nameController = TextEditingController();
     final TextEditingController _emailController = TextEditingController();
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: mq.height * 0.01),
+      padding: EdgeInsets.symmetric(
+          horizontal: 10, vertical: Responsive.tabletSize * 0.01),
       child: Container(
         // padding: EdgeInsets.only(value),
         decoration: BoxDecoration(
-            color: bodyColor, borderRadius: BorderRadius.circular(20)),
+            color: bgColorLight, borderRadius: BorderRadius.circular(20)),
         child: ListTile(
           // textColor: bodyColor,
-          minVerticalPadding: mq.height * .01,
+          // minVerticalPadding: mq.height * .01,
+          minVerticalPadding: Responsive.tabletSize * .01,
           title: Text(
             title,
-            style: const TextStyle(fontWeight: FontWeight.bold, color: bgColor),
+            style: const TextStyle(
+                fontWeight: FontWeight.bold, color: textColorLight),
           ),
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,7 +96,7 @@ class ProfileTileWidget extends StatelessWidget {
           trailing: IconButton(
               icon: const Icon(
                 Icons.edit,
-                color: bgColor,
+                color: drawerColor,
                 size: 24,
               ),
               onPressed: () => _showEditRouteTileDialog()),

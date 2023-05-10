@@ -1,28 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:yums_dashboard/constants/constants.dart';
 
-import '../../../main.dart';
+import '../../../configs/themes/app_color.dart';
+import '../../../responsive.dart';
 
 class CustomTextField extends StatelessWidget {
-  //for storing Hive box
-  final _myBox = Hive.box('MyBox');
-
-  //for writing data
-  void writeDataLocally() {
-    _myBox.put(1, controller!.value);
-  }
-
-  //for writing data
-  String? readLocalData() {
-    return _myBox.get(key);
-  }
-
-  //for writing data
-  void deleteDataLocally() {
-    _myBox.delete(1);
-  }
-
   CustomTextField({
     super.key,
     required this.title,
@@ -40,7 +21,7 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: mq.width * .04),
+      padding: EdgeInsets.symmetric(horizontal: Responsive.tabletSize * .04),
       child: TextFormField(
         controller: controller,
 
@@ -53,7 +34,7 @@ class CustomTextField extends StatelessWidget {
           hintText: hintText,
           label: Text(title),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(50)),
-          prefixIcon: Icon(iconData, color: bodyColor),
+          prefixIcon: Icon(iconData, color: bgColorLight),
         ),
       ),
     );

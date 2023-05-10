@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 
-import '../../../constants/constants.dart';
+import '../../../configs/themes/app_color.dart';
 
 class CustomTextSwitch extends StatefulWidget {
   const CustomTextSwitch({
@@ -42,9 +42,9 @@ class _CustomTextSwitchState extends State<CustomTextSwitch> {
           Text(widget.name.toString(), style: const TextStyle(fontSize: 16)),
           FlutterSwitch(
             value: switch_value,
-            activeColor: primaryColor,
+            activeColor: primaryColorLight,
             width: 45,
-            inactiveColor: secondaryColor,
+            inactiveColor: secondaryColorLight,
             height: 25,
             toggleSize: 20,
             valueFontSize: 8,

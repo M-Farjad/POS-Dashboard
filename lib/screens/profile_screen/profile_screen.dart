@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-import '../../main.dart';
+// import '../../main.dart';
 import 'components/body.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
-
+  static String routeName = '/';
   @override
   Widget build(BuildContext context) {
-    mq = MediaQuery.of(context).size;
+    // mq = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         leading:

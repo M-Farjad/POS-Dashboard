@@ -1,38 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/adapters.dart';
 
-import 'screens/profile_screen/profile_screen.dart';
-import 'constants/constants.dart';
+import 'package:get/get.dart';
 
-late Size mq;
+import './bindings/initial_bindings.dart';
+import './routes/routes.dart';
+import './configs/themes/app_dark_theme.dart';
+import './configs/themes/app_light_theme.dart';
+// import './dbHelper/mongo_db.dart';
 
 void main() async {
-  //init Flutter
-  await Hive.initFlutter();
-  //open Box
-  var box = await Hive.openBox('MyBox');
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  // Get x Controller initialization
+
+  InitialBindings().dependencies();
+
+  runApp(const MainApp());
 }
 
-//For comment removing
-// \/\/.*$|\/\*[\s\S]*?\*\/
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MainApp extends StatefulWidget {
+  const MainApp({super.key});
 
   @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Admin Panel',
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: bgColor,
-        textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
-            .apply(bodyColor: bodyColor),
-        canvasColor: secondaryColor,
-      ),
-      home: const ProfileScreen(),
+      theme: LightTheme().buildLigtTheme(),
+      darkTheme: DarkTheme().buildDarkTheme(),
+      getPages: AppRoutes.routes(),
     );
   }
 }

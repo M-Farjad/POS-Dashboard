@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_switch/flutter_switch.dart';
-import 'package:yums_dashboard/constants/constants.dart';
 
-import '../../../main.dart';
+import '../../../configs/themes/app_color.dart';
+import '../../../responsive.dart';
 import 'custom_text_switch.dart';
 import 'custom_textfields.dart';
 import 'profile_route_tile.dart';
@@ -38,32 +37,37 @@ class _BodyState extends State<Body> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               //for adding some space
-              SizedBox(width: mq.width, height: mq.height * 0.03),
+              SizedBox(
+                  width: Responsive.tabletSize,
+                  height: Responsive.tabletSize * 0.03),
               CustomTextField(
                 title: 'Name',
                 hintText: 'e.g Salman Naeem',
-                iconData: CupertinoIcons.person,
+                iconData: Icons.person_2_outlined,
                 controller: _nameController,
               ),
-              SizedBox(height: mq.height * 0.02),
+              SizedBox(height: Responsive.tabletSize * 0.02),
               CustomTextField(
                 hintText: 'e.g abc@example.com',
                 title: 'Email',
                 iconData: Icons.email_outlined,
                 controller: _emailController,
               ),
-              SizedBox(height: mq.height * 0.02),
+              SizedBox(height: Responsive.tabletSize * 0.02),
               const Divider(
-                  color: secondaryColor,
+                  color: secondaryColorLight,
                   height: 5,
                   indent: 200,
                   endIndent: 200),
-              SizedBox(height: mq.height * 0.01),
+              SizedBox(height: Responsive.tabletSize * 0.01),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
                 child: Text(
                   'Notification',
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
+                  style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w700,
+                      color: textColorLight),
                 ),
               ),
               CustomTextSwitch(flag: msgFlag, name: 'Message'),
@@ -71,11 +75,11 @@ class _BodyState extends State<Body> {
               CustomTextSwitch(flag: eveFlag, name: 'Evening Route'),
               CustomTextSwitch(flag: spcialFlag, name: 'Special Route'),
               const Divider(
-                  color: secondaryColor,
+                  color: secondaryColorLight,
                   height: 5,
                   indent: 200,
                   endIndent: 200),
-              SizedBox(height: mq.height * 0.01),
+              SizedBox(height: Responsive.tabletSize * 0.01),
 
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -85,9 +89,9 @@ class _BodyState extends State<Body> {
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
                 ),
               ),
-              SizedBox(height: mq.height * 0.01),
+              SizedBox(height: Responsive.tabletSize * 0.01),
               SizedBox(
-                height: mq.height * .35,
+                height: Responsive.tabletSize * .35,
                 child: ListView.builder(
                     itemCount: 10,
                     itemBuilder: (context, index) {
