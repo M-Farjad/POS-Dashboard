@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 import '../../../configs/themes/app_color.dart';
 import '../../../responsive.dart';
 import 'custom_text_switch.dart';
 import 'custom_textfields.dart';
 import 'profile_route_tile.dart';
+import 'text_field_model.dart';
 
 class Body extends StatefulWidget {
   const Body({super.key});
@@ -16,18 +18,31 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Hive.openBox<TextFieldModel>('textFieldsBox').then((mybox) {
+      setState(() {
+        _nameController.text = mybox.get('textFieldsBox') == null
+            ? ''
+            : mybox.get('textFieldsBox')!.name;
+      });
+      // _emailController.text = mybox.;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController _nameController = TextEditingController();
-    final TextEditingController _emailController = TextEditingController();
     bool msgFlag = true;
     bool mrngFlag = false;
     bool eveFlag = true;
     bool spcialFlag = false;
 
     final _myRoutelist = [];
-
+    // Box<TextFieldModel> myBox = Hive.openBox<TextFieldModel>('textFieldsBox');
     return SafeArea(
       child: Form(
         key: _formKey,
@@ -52,6 +67,17 @@ class _BodyState extends State<Body> {
                 title: 'Email',
                 iconData: Icons.email_outlined,
                 controller: _emailController,
+              ),
+              MaterialButton(
+                onPressed: () {
+                  final e = _emailController.text;
+                  final n = _nameController.text;
+                  Hive.openBox<TextFieldModel>('textFieldsBox').then((mybox) {
+                    mybox.put(
+                        'textFieldValue', TextFieldModel(name: n, email: e));
+                  });
+                },
+                child: Icon(Icons.add),
               ),
               SizedBox(height: Responsive.tabletSize * 0.02),
               const Divider(

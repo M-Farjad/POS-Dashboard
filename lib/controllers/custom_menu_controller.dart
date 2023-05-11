@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 enum MenuItems {
   login,
   logout,
-  profhile,
+  profile,
   home,
   route,
   tracking,

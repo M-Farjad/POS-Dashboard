@@ -52,7 +52,7 @@ class MainScreen extends StatelessWidget {
       return const TrackingScreen();
     } else if (menuItem == MenuItems.message) {
       return const MessageScreen();
-    } else if (menuItem == MenuItems.profhile) {
+    } else if (menuItem == MenuItems.profile) {
       return const ProfileScreen();
     } else if (menuItem == MenuItems.login) {
       return const DLoginScreen();

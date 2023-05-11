@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 // import '../../main.dart';
+import '../../configs/themes/ui_parameters.dart';
+import '../../responsive.dart';
+import '../../widgets/header.dart';
 import 'components/body.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -9,16 +12,18 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // mq = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: AppBar(
-        leading:
-            IconButton(onPressed: () {}, icon: const Icon(Icons.menu_rounded)),
-        title: const Text('Profile'),
-        actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
-        ],
+    return const SafeArea(
+      child: SingleChildScrollView(
+        padding: defaultEdgePadding,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Header(title: 'Profile'),
+            kHeightSpace,
+            Body(),
+          ],
+        ),
       ),
-      body: Body(),
     );
   }
 }
