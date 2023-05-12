@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../configs/themes/app_color.dart';
 import '../../../responsive.dart';
@@ -9,6 +12,7 @@ import 'custom_textfields.dart';
 import 'profile_route_tile.dart';
 import 'text_field_model.dart';
 
+/// The class "Body" is a stateful widget in Dart.
 class Body extends StatefulWidget {
   const Body({super.key});
 
@@ -20,22 +24,21 @@ class _BodyState extends State<Body> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
+
+  List<String> dataList = [];
+  static const String userKey = 'userData';
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    Hive.openBox<TextFieldModel>('textFieldsBox').then((mybox) {
-      setState(() {
-        _nameController.text = mybox.get('textFieldsBox') == null
-            ? ''
-            : mybox.get('textFieldsBox')!.name;
-      });
-      // _emailController.text = mybox.;
-    });
+    getUserdata();
   }
 
   @override
   Widget build(BuildContext context) {
+    /// These are boolean variables that are used to control the state of custom text switches in the
+    /// UI. They determine whether the switches are turned on or off. For example, `msgFlag` controls
+    /// the state of the "Message" switch, and if it is set to `true`, the switch will be turned on.
     bool msgFlag = true;
     bool mrngFlag = false;
     bool eveFlag = true;
@@ -69,15 +72,19 @@ class _BodyState extends State<Body> {
                 controller: _emailController,
               ),
               MaterialButton(
-                onPressed: () {
-                  final e = _emailController.text;
-                  final n = _nameController.text;
-                  Hive.openBox<TextFieldModel>('textFieldsBox').then((mybox) {
-                    mybox.put(
-                        'textFieldValue', TextFieldModel(name: n, email: e));
-                  });
+                /// This code block is defining an asynchronous function that is triggered when a button
+                /// is pressed. The function retrieves an instance of SharedPreferences and sets a
+                /// string list with the key `userKey` and the values of
+                /// `_nameController.text.toString()` and `_emailController.text.toString()`. This
+                /// allows the user's name and email to be stored in shared preferences for future use.
+                onPressed: () async {
+                  var prefs = await SharedPreferences.getInstance();
+                  prefs.setStringList(
+                    userKey,
+                    [_nameController.text, _emailController.text],
+                  );
                 },
-                child: Icon(Icons.add),
+                child: const Icon(Icons.add),
               ),
               SizedBox(height: Responsive.tabletSize * 0.02),
               const Divider(
@@ -135,5 +142,20 @@ class _BodyState extends State<Body> {
         ),
       ),
     );
+  }
+
+  /// This function retrieves user data from shared preferences
+  /// and updates the state of the widget with
+  /// the retrieved data.
+  Future<void> getUserdata() async {
+    var prefs = await SharedPreferences.getInstance();
+    dataList = prefs.getStringList(userKey) ?? [];
+    if (dataList.isNotEmpty) {
+      setState(() {
+        log(dataList.first);
+        _nameController.text = dataList[0];
+        _emailController.text = dataList[1];
+      });
+    }
   }
 }

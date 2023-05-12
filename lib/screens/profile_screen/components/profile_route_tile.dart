@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 // import '../../../constants/constants.dart';
 import '../../../configs/themes/app_color.dart';
-import '../../../main.dart';
 import '../../../responsive.dart';
 
 class ProfileTileWidget extends StatelessWidget {

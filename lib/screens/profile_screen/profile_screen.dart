@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 // import '../../main.dart';
 import '../../configs/themes/ui_parameters.dart';
-import '../../responsive.dart';
 import '../../widgets/header.dart';
 import 'components/body.dart';
 
